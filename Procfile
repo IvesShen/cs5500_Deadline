@@ -1,1 +1,1 @@
-web: python dealscraper/helloworld.py
+web gunicorn helloworld:app
