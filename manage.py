@@ -1,4 +1,6 @@
-
+# Run python manage.py db init to initialize Alembic migrations
+# and python manage.py db migrate to migrate
+# For upgrades, use python manage.py db upgrade
 import os
 from flask.ext.script import Manager
 from flask.ext.migrate import Migrate, MigrateCommand
