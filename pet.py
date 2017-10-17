@@ -116,6 +116,17 @@ class Pet():
         else:
             raise TypeError("place needs to be a string")
 
+    def __repr__(self):
+        return "Pet({0.color!r}, {0.kind!r}, {0.cuteness_level!r}, {0.owner!r},\
+    {0.hungry_level!r},{0.place!r})".format(self)
+
+    def __str__(self):
+        return "({0.color!r}, {0.kind!r}, {0.cuteness_level!r}, {0.owner!r},\
+    {0.hungry_level!r},{0.place!r})".format(self)
+
+    def __unicode__(self):
+        self.__str__()
+
 
 class Dog(Pet):
 
@@ -216,3 +227,19 @@ class Dog(Pet):
     @name.deleter
     def name(self):
         raise AttributeError("Can't delete attribute")
+
+    def __repr__(self):
+        return "Dog({0.breed!r}, {0.cuteness_level!r}, {0.height!r},\
+        {0.kind!r}, {0.owner!r}, {0.weight!r}, {0.color!r}, {0.gender!r},\
+        {0.hungry_level!r}, {0.name!r}, {0.place!r})".format(self)
+
+    def __str__(self):
+        return "Dog({0.breed!r}, {0.cuteness_level!r}, {0.height!r},\
+            {0.kind!r}, {0.owner!r}, {0.weight!r}, {0.color!r}, {0.gender!r},\
+            {0.hungry_level!r}, {0.name!r}, {0.place!r})".format(self)
+
+    def __unicode__(self):
+        return self.__str__()
+
+
+chiman = Dog()
