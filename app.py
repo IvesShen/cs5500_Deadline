@@ -41,6 +41,17 @@ def add_pet():
     """
     pass
 
+@app.route("/pet/all/", methods=["GET"])
+def find_all_known_pets():
+    """TODO: Docstring for find_all_known_pets.
+    :returns: TODO
+
+    """
+    pass
+
+@app.route("/pet/search/query")
+
+
 @app.route("/pet/<int:pet_id>", methods=["GET"])
 def find_pet_id(pet_id):
     """TODO: Docstring for .
@@ -50,16 +61,6 @@ def find_pet_id(pet_id):
 
     """
     pass
-
-@app.route("/pet/all/", methods=["GET"])
-def find_all_known_pets():
-    """TODO: Docstring for find_all_known_pets.
-    :returns: TODO
-
-    """
-    pass
-
-@app.route()
 
 @app.route("/pet/<int:pet_id>", methods=["PUT"])
 def update_pet_info(pet_id):
@@ -71,17 +72,9 @@ def update_pet_info(pet_id):
     """
     pass
 
-
 @app.route("/pet/<int:pet_id>/history", methods=["POST"])
 
-
-@app.route("/pet", methods=["POST"])
-
-
-@app.route("/pet", methods=["POST"])
-
-
-@app.route("/pet", methods=["POST"])
+@app.route("/pet/<int:pet_id>/moveto")
 
 if __name__ == "__main__":
     print("pet project v%s" % __version__)
