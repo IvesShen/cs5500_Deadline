@@ -14,6 +14,7 @@ __status__ = "Production"
 
 app = flask.Flask(__name__)
 app.config.from_object(os.environ['APP_SETTINGS'])
+db = SQLAlchemy(app)
 
 #TODO: move this to a configuration file.
 config = {
