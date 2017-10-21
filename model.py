@@ -12,7 +12,7 @@ class Pet(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     kind = db.Column(db.String(50), nullable=False)
     place = db.Column(db.String(100))
-    places = db.Column(db.Column(JSON))
+    places = db.Column(JSON)
     owner = db.Column(db.String(100))
     cuteness_level = db.Column(db.Integer, nullable=False)
     hungery_level = db.Column(db.Integer, nullable=False)
@@ -66,19 +66,19 @@ class Pet(db.Model):
         self._name = name
 
     def __repr__(self):
-        return "Pet({0.id!r}, {0.kind!r}, {0.place!r}, {0.owner!r},\
-        {0.cuteness_level!r}, {0.hungry_level!r}, {0.color!r},\
-        {0.gender!r}, {0.breed!r}, {0.weight!r}, {0.height!r},\
-        {0.name!r})".format(self)
+        return "Pet({0.id!r}, {0._kind!r}, {0._place!r}, {0._owner!r},\
+        {0._cuteness_level!r}, {0._hungry_level!r}, {0._color!r},\
+        {0._gender!r}, {0._breed!r}, {0._weight!r}, {0._height!r},\
+        {0._name!r})".format(self)
 
     def __str__(self):
-        return "{0.id!r}, {0.kind!r}, {0.place!r}, {0.owner!r},\
-        {0.cuteness_level!r}, {0.hungry_level!r}, {0.color!r},\
-        {0.gender!r}, {0.breed!r}, {0.weight!r}, {0.height!r},\
-        {0.name!r}".format(self)
+        return "{0.id!r}, {0._kind!r}, {0._place!r}, {0._owner!r},\
+        {0._cuteness_level!r}, {0._hungry_level!r}, {0._color!r},\
+        {0._gender!r}, {0._breed!r}, {0._weight!r}, {0._height!r},\
+        {0._name!r}".format(self)
 
     def __unicode__(self):
         return self.__str__()
 
 
-db.create_all()
+# db.create_all()

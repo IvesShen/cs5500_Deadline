@@ -34,11 +34,7 @@ def index():
 @app.route("/_info")
 def info():
     return jsonify({
-        "Application":
-        "flask-based-pet-project %s" % __version__,
-        "Powered By":
-        "flask %s, sqlalchemy %s" % (flask.__version__,
-                                     sqlalchemy.__version__),
+        "Application": "flask-based-pet-project %s" % __version__,
     })
 
 
@@ -89,8 +85,8 @@ def find_all_known_pets():
 # @app.route("/pet", methods=["POST"])
 
 # @app.route("/pet", methods=["POST"])
-
-print("pet project v%s" % __version__)
-app.secret_key = "some secret"
-app.debug = True
-app.run()
+if __name__ == '__main__':
+    print("pet project v%s" % __version__)
+    app.secret_key = "some secret"
+    app.debug = True
+    app.run()
