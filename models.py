@@ -13,7 +13,7 @@ class Pet(Base):
     _history = Column(String(1000))
     _owner = Column(String(100))
     _cuteness_level = Column(Integer)
-    _hungery_level = Column(Integer)
+    _hungry_level = Column(Integer)
     _color = Column(String(100))
     _gender = Column(String(40))
     _breed = Column(String(100))
