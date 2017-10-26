@@ -62,11 +62,7 @@ def add_pet():
 
 @app.route("/pet/<int:pet_id>", methods=["GET"])
 def find_pet_by_id(pet_id):
-    """TODO: Docstring for .
-
-    :pet_id: TODO
-    :returns: TODO
-
+    """TODO: Docstring for find_pet_by_id
     """
     query_res = Pet.query.filter(Pet.id == pet_id).first()
     data = object_as_dict(query_res)
@@ -93,9 +89,6 @@ def move_pet_to_place(pet_id, place):
     :returns: TODO
 
     """
-    query_res = Pet.query.filter(Pet.id == pet_id).first()
-    data = object_as_dict(query_res)
-    return jsonify({"status": "success", "data": data})
 
 
 @app.route("/pet/<string:name>", methods=["GET"])
@@ -171,7 +164,7 @@ def find_pets_by_gender(gender):
     :returns: TODO
 
     """
-    query_res = Pet.query.filter(Pet._gender == gender).first()
+    query_res = Pet.query.filter(Pet._gender == gender).all()
     data = [object_as_dict(r) for r in query_res]
     return jsonify({"status": "success", "data": data})
 
@@ -188,6 +181,7 @@ def object_as_dict(obj):
 # @app.route("/pet", methods=["POST"])
 
 # @app.route("/pet", methods=["POST"])
+# @app.route("/pet/<int:pet_id>/moveto")
 
 # @app.route("/pet", methods=["POST"])
 if __name__ == '__main__':
