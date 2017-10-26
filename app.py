@@ -29,10 +29,13 @@ def index():
 
 @app.route("/_info")
 def info():
-    return jsonify({"Application": "flask-based-pet-project %s" % __version__,
-                    "Powered By": "flask %s, sqlalchemy %s" %
-                    (flask.__version__, sqlalchemy.__version__),
-                    })
+    return jsonify({
+        "Application":
+        "flask-based-pet-project %s" % __version__,
+        "Powered By":
+        "flask %s, sqlalchemy %s" % (flask.__version__,
+                                     sqlalchemy.__version__),
+    })
 
 
 @app.route("/pet", methods=["POST"])
@@ -54,8 +57,6 @@ def find_all_known_pets():
 
 
 @app.route("/pet/search/query")
-
-
 @app.route("/pet/<int:pet_id>", methods=["GET"])
 def find_pet_id(pet_id):
     """TODO: Docstring for .
@@ -78,11 +79,9 @@ def update_pet_info(pet_id):
     pass
 
 
-@app.route("/pet/<int:pet_id>/history", methods=["POST"])
+# @app.route("/pet/<int:pet_id>/history", methods=["POST"])
 
-
-@app.route("/pet/<int:pet_id>/moveto")
-
+# @app.route("/pet/<int:pet_id>/moveto")
 
 if __name__ == "__main__":
     print("pet project v%s" % __version__)
