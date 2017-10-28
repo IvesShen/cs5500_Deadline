@@ -37,7 +37,6 @@ class Pet(Base):
 
         :_kind: TODO
         :_gender: TODO
-        :_places: TODO
         :_cuteness_level: TODO
         :_hungry_level: TODO
         :_owner: TODO
@@ -50,10 +49,6 @@ class Pet(Base):
 
         """
         self._kind = kind
-        self._place = place
-        self._places = defaultdict(list)
-        self._places[place].append(datetime.utcnow().timestamp())
-        self._history = dumps(self._places)
         self._cuteness_level = cuteness_level
         self._hungry_level = hungry_level
         self._owner = owner
@@ -63,6 +58,16 @@ class Pet(Base):
         self._weight = weight
         self._height = height
         self._name = name
+        self.update_place(place)
+
+    def update_place(self, place):
+        self._place = place
+        try:
+            places = defaultdict(list, loads(self._history))
+        except TypeError:
+            places = defaultdict(list)
+        places[place].append(datetime.utcnow().timestamp())
+        self._history = dumps(places)
 
     def __repr__(self):
         return "Pet({0._kind!r}, {0._place!r}, {0._owner!r}, {0._cuteness_level!r}, {0._hungry_level!r}, {0._color!r}, {0._gender!r}, {0._breed!r}, {0._weight!r}, {0._height!r}, {0._name!r})".format(

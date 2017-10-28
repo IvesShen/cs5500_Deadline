@@ -1,10 +1,12 @@
 from database import db_session, init_db
+from collections import defaultdict
+from datetime import datetime
 from flask import Flask
 from flask import request, jsonify, session
 from os import environ
 from flask_sqlalchemy import SQLAlchemy, inspect
 from models import Pet
-import json
+from json import loads, dumps
 # import models
 # from models import engine, dbsession
 
@@ -53,7 +55,6 @@ def add_pet():
 
     """
     data = request.get_json(force=True)
-    print(data)
     to_write = Pet(**data)
     db_session.add(to_write)
     db_session.commit()
@@ -67,6 +68,47 @@ def find_pet_by_id(pet_id):
     query_res = Pet.query.filter(Pet.id == pet_id).first()
     data = object_as_dict(query_res)
     return jsonify({"status": "success", "data": data})
+
+
+@app.route("/pet/{int:pet_id}/{int:new_height}", methods=["PUT"])
+def update_pet_height(pet_id, new_height):
+    """TODO: Docstring for add_pet.
+    :returns: TODO
+
+    """
+    given_pet = Pet.query.filter(Pet.id == pet_id).first()
+    given_pet._height = new_height
+    db_session.commit()
+    return jsonify({"status": "success"})
+
+
+@app.route("/pet/{int:pet_id}/{int:new_weight}", methods=["PUT"])
+def update_pet_weight(pet_id, new_height):
+    """TODO: Docstring for add_pet.
+    :returns: TODO
+
+    """
+    given_pet = Pet.query.filter(Pet.id == pet_id).first()
+    given_pet._weight = new_height
+    db_session.commit()
+    return jsonify({"status": "success"})
+
+
+@app.route("/pet/{int:pet_id}/{string:new_place}", methods=["PUT"])
+def update_pet_place(pet_id, new_place):
+    """TODO: Docstring for add_pet.
+    :returns: TODO
+
+    """
+
+    given_pet = Pet.query.filter(Pet.id == pet_id).first()
+    given_pet.update_place(new_place)
+   # given_pet._place = new_place
+    #place_history = defaultdict(list, loads(given_pet._history))
+    #place_history[new_place].append(datetime.utcnow().timestamp())
+    #given_pet._history = dumps(place_history)
+    db_session.commit()
+    # return jsonify({"status": "success"})
 
 
 @app.route("/pet/all/", methods=["GET"])
