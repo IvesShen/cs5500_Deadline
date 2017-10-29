@@ -1,12 +1,14 @@
-from database import db_session, init_db
 from collections import defaultdict
 from datetime import datetime
-from flask import Flask
-from flask import request, jsonify, session
+from json import dumps, loads
 from os import environ
+
+from flask import Flask, jsonify, request, session
 from flask_sqlalchemy import SQLAlchemy, inspect
+
+from database import db_session, init_db
 from models import Pet
-from json import loads, dumps
+
 # import models
 # from models import engine, dbsession
 
@@ -62,7 +64,7 @@ def add_pet():
 
 
 @app.route("/pet/<int:pet_id>", methods=["GET"])
-def find_pet_by_id(pet_id):
+def pet_by_id(pet_id):
     """TODO: Docstring for find_pet_by_id
     """
     query_res = Pet.query.filter(Pet.id == pet_id).first()
@@ -108,11 +110,11 @@ def update_pet_place(pet_id, new_place):
     #place_history[new_place].append(datetime.utcnow().timestamp())
     #given_pet._history = dumps(place_history)
     db_session.commit()
-    # return jsonify({"status": "success"})
+    return jsonify({"status": "success"})
 
 
 @app.route("/pet/all/", methods=["GET"])
-def find_all_known_pets():
+def all_known_pets():
     """TODO: Docstring for find_all_known_pets.
     :returns: TODO
 
@@ -134,7 +136,7 @@ def move_pet_to_place(pet_id, place):
 
 
 @app.route("/pet/<string:name>", methods=["GET"])
-def find_pets_by_name(name):
+def pets_by_name(name):
     """TODO: Docstring for .
 
     :name: TODO
@@ -147,7 +149,7 @@ def find_pets_by_name(name):
 
 
 @app.route("/pet/<string:kind>", methods=["GET"])
-def find_pets_by_kind(kind):
+def pets_by_kind(kind):
     """TODO: Docstring for .
 
     :kind: TODO
@@ -160,7 +162,7 @@ def find_pets_by_kind(kind):
 
 
 @app.route("/pet/<string:place>", methods=["GET"])
-def find_pets_by_place(place):
+def pets_by_place(place):
     """TODO: Docstring for .
 
     :place: TODO
@@ -173,7 +175,7 @@ def find_pets_by_place(place):
 
 
 @app.route("/pet/<string:color>", methods=["GET"])
-def find_pets_by_color(color):
+def pets_by_color(color):
     """TODO: Docstring for .
 
     :color: TODO
@@ -186,7 +188,7 @@ def find_pets_by_color(color):
 
 
 @app.route("/pet/<string:breed>", methods=["GET"])
-def find_pets_by_breed(breed):
+def pets_by_breed(breed):
     """TODO: Docstring for .
 
     :breed: TODO
@@ -199,7 +201,7 @@ def find_pets_by_breed(breed):
 
 
 @app.route("/pet/<string:gender>", methods=["GET"])
-def find_pets_by_gender(gender):
+def pets_by_gender(gender):
     """TODO: Docstring for .
 
     :gender: TODO
