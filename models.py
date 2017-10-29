@@ -4,7 +4,6 @@ from sqlalchemy import Column, Integer, String
 from database import Base
 from json import dumps, loads
 
-
 class Pet(Base):
     __tablename__ = 'pet'
     id = Column(Integer, primary_key=True)
