@@ -63,6 +63,19 @@ def add_pet():
     return jsonify({"pet.id": to_write.id})
 
 
+@app.route("/user", methods=["POST"])
+def add_user():
+    """TODO: Docstring for add_user.
+    :returns: TODO
+
+    """
+    data = request.get_json(force=True)
+    to_write = User(**data)
+    db_session.add(to_write)
+    db_session.commit()
+    return jsonify({"user.id": to_write.id})
+
+
 @app.route("/pet/<int:pet_id>", methods=["GET"])
 def pet_by_id(pet_id):
     """TODO: Docstring for find_pet_by_id

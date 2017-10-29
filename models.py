@@ -1,6 +1,7 @@
 from datetime import datetime
 from collections import defaultdict
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy.orm import relationship, backref
 from database import Base
 from json import dumps, loads
 
@@ -10,7 +11,8 @@ class Pet(Base):
     _kind = Column(String(50), nullable=False)
     _place = Column(String(100))
     _history = Column(String(1000))
-    _owner = Column(String(100))
+    _owner_id = Column(Integer, ForeignKey('owner.id'), nullable=False)
+    _owner = relationship('Owner', backref=backref('pets', lazy=True))
     _cuteness_level = Column(Integer)
     _hungry_level = Column(Integer)
     _color = Column(String(100))
@@ -25,7 +27,7 @@ class Pet(Base):
                  place="unknown",
                  cuteness_level=10,
                  hungry_level=10,
-                 owner="unknown",
+                 # owner="unknown",
                  color="unknown",
                  gender="unknown",
                  breed="unknown",
@@ -50,7 +52,7 @@ class Pet(Base):
         self._kind = kind
         self._cuteness_level = cuteness_level
         self._hungry_level = hungry_level
-        self._owner = owner
+        # self._owner = owner
         self._color = color
         self._gender = gender
         self._breed = breed
@@ -69,7 +71,7 @@ class Pet(Base):
         self._history = dumps(places)
 
     def __repr__(self):
-        return "Pet({0._kind!r}, {0._place!r}, {0._owner!r}, {0._cuteness_level!r}, {0._hungry_level!r}, {0._color!r}, {0._gender!r}, {0._breed!r}, {0._weight!r}, {0._height!r}, {0._name!r})".format(
+        return "Pet({0._kind!r}, {0._place!r}, {0._cuteness_level!r}, {0._hungry_level!r}, {0._color!r}, {0._gender!r}, {0._breed!r}, {0._weight!r}, {0._height!r}, {0._name!r})".format(
             self)
 
     # def __str__(self):
@@ -78,3 +80,20 @@ class Pet(Base):
 
     # def __unicode__(self):
     #     return self.__str__()
+
+
+class Owner(Base):
+    __tablename__ = 'owner'
+    id = Column(Integer, primary_key=True)
+    _name = Column(String(50), nullable=False)
+    _email = Column(String(100), unique=True, nullable=False)
+    _password = Column(String(100), nullable=False)
+    _type = Column(String(50))
+    _info = Column(String(50))
+
+
+    def __repr__(self):
+        return "Owner({0._name!r}, {0._email!r}, {0._password!r}, {0._type!r}, {0._info!r})".format(
+            self)
+
+
