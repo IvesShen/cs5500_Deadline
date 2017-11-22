@@ -36,7 +36,6 @@ def info():
 @app.route("/login", methods=["POST"])
 def login():
 	data = request.get_json(force=True)
-	data = json.loads(data)
 	print('data:',data, type(data))
 	query = dbsession.query(models.User).filter_by(email=data['email'], password=data['password'])
 	rows = query.all()
