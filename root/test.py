@@ -53,19 +53,39 @@ class TestApp(unittest.TestCase):
         self.assertEqual(data['Application'], "flask-based-pet-project 1.0.11")
         self.assertEqual(data['Powered By'], "flask 0.12.2, sqlalchemy 1.1.15")
 
-    def loginForTest(self, email, password):
+    def usersForTest(self, url, email, password):
         dictionary = {
             "email": email,
             "password": password
         }
-        json_data=json.dumps(dictionary)
-        return self.app.post('/login', data=json_data)
+        json_data = json.dumps(dictionary)
+        return self.app.post(url, data=json_data)
 
     def testLogin(self):
         response = self.loginForTest("wrong@email.com", "???????")
         data = json.loads(response.get_data())
         self.assertEqual(data['status'], 'error')
-        
+	
+    def testRegisterAndLogin(self):
+        response = self.usersForTest('/register', "noire@expo.com", "test")
+        data = json.loads(response.get_data())
+        self.assertEqual(data['status'], 'welcome!')
+        # we try to register with an existed email and password
+        # in this case, it should return error.
+        response = self.usersForTest('/register', "noire@expo.com", "test")
+        data = json.loads(response.get_data())
+        self.assertEqual(data['status'], 'error')
+        response = self.usersForTest('/login', "noire@expo.com", "test")
+        data = json.loads(response.get_data())
+        self.assertEqual(data['status'], 'success')
+        response = self.usersForTest('/deleteUser', "noire@expo.com", "test")
+        data = json.loads(response.get_data())
+        self.assertEqual(data['status'], 'success')
+        # we try to delete something that is not existed
+        # in this case, it should return error.
+        response = self.usersForTest('/deleteUser', "noire@expo.com", "test")
+        data = json.loads(response.get_data())
+        self.assertEqual(data['status'], 'error')    
 
 if __name__ == '__main__':
     unittest.main()
