@@ -13,6 +13,8 @@ __version__ = "1.0.11"
 __status__ = "Production"
 
 app = flask.Flask(__name__)
+app.secret_key = "some secret"
+app.config['SESSION_TYPE'] = 'filesystem'
 
 #TODO: move this to a configuration file.
 config = {
@@ -33,6 +35,38 @@ def info():
 		"Powered By": "flask %s, sqlalchemy %s" % (flask.__version__, sqlalchemy.__version__),
 		})
 		
+# Note it should be a wise choice to check whether the email and password is
+# valid at the client side, therefore the server is not responsible to do
+# that and it is a good strategy to save time. So in this implementation,
+# I did not implement the part to check the validity of the user input.
+@app.route("/register", methods=["POST"])
+def register():
+        data = request.get_json(force=True)
+        print('data:',data, type(data))
+        query = dbsession.query(models.User).filter_by(email=data['email'], password=data['password']).all()
+        if len(query) != 0:
+                return jsonify({'status':'error', 'error':'The user is already registered!'})
+        else:
+                newUser=models.User(email=data['email'], password=data['password'])
+                dbsession.add(newUser)
+                dbsession.commit()
+                return jsonify({'status': 'welcome!'})
+
+# this method is test only: which means it will not be used in the actual
+# web page. It is used to handle the data manipulation in a easier way.
+@app.route("/deleteUser", methods=["POST"])
+def deleteUser():
+        data = request.get_json(force=True)
+        print('data:',data, type(data))
+        query = None
+        try:
+                query = dbsession.query(models.User).filter_by(email=data['email'], password=data['password']).one()
+        except:
+                return jsonify({'status':'error', 'error':'The user is not registered!'})
+        dbsession.delete(query)
+        dbsession.commit()
+        return jsonify({'status': 'success'})
+	
 @app.route("/login", methods=["POST"])
 def login():
 	data = request.get_json(force=True)
@@ -165,6 +199,5 @@ def object_as_dict(obj):
 
 if __name__ == "__main__":
 	print("pet project v%s" % __version__)
-	app.secret_key = "some secret"
 	app.debug = True
 	app.run()
