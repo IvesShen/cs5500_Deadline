@@ -1,0 +1,8 @@
+For commit de84a309bbac20e6a241de81315db3d871d468fb
+1. Nice work! The code is easy to read and understand.
+2. The code can be improved in several ways:
+  *The code needs to use the consistent and standard coding style and I refactored the code based on pep8
+  *Many duplicated code and I refactored them to functions
+  *Database access operation could be abstracted to a class
+  *The return error message to client should reflect as much information as possible
+  *The return message should keep consistent format so the client can parse the message very easily
