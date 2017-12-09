@@ -1,0 +1,39 @@
+{
+  "pet": {
+    "currentLocation": "string",
+    "healthStatus": 0,
+    "name": "string",
+    "owner": {
+      "address": "string",
+      "email": "string",
+      "firstName": "string",
+      "id": 0,
+      "lastName": "string",
+      "password": "string",
+      "phone": 0,
+      "username": "string"
+    },
+    "petColor": "string",
+    "petId": 0,
+    "petLength": 0,
+    "petType": {
+      "category": "string",
+      "type": "string",
+      "typeId": 0
+    },
+    "petWeight": 0,
+    "shelter": {
+      "capacity": 0,
+      "city": "string",
+      "description": "string",
+      "location": "string",
+      "shelterId": 0,
+      "shelterName": "string",
+      "status": true,
+      "zipCode": 0
+    }
+  },
+  "recordLocation": "string",
+  "recordTime": "2017-12-09T21:32:41.187Z",
+  "trackId": 213
+}
