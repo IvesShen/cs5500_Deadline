@@ -1,0 +1,10 @@
+{
+  "capacity": 0,
+  "city": "string",
+  "description": "string",
+  "location": "string",
+  "shelterId": 213,
+  "shelterName": "string",
+  "status": true,
+  "zipCode": 0
+}
